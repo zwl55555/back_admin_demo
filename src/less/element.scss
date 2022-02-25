@@ -1,0 +1,10 @@
+
+$--color-info: rgb(6, 177, 6);
+$--color-success: #409EFF;
+$--color-danger:#e40909;
+
+
+/* 改变 icon 字体路径变量，必需 */
+$--font-path: '~element-ui/lib/theme-chalk/fonts';
+
+@import "~element-ui/packages/theme-chalk/src/index";

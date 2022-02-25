@@ -1,0 +1,15 @@
+
+//全局头部样式
+.navBar {
+  display: flex;
+  align-items: center;
+  margin: 3vh 0;
+
+  .addBtn {
+    margin: 0 4vw 0 1.3vw;
+  }
+
+  .searchInp {
+    width: 20%;
+  }
+}
