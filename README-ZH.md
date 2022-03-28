@@ -19,6 +19,7 @@ back_demo是一个后台前端解决方案，它基于 [vue](https://github.com/
   - run build:stage //测试环境
   - run build:prod  //生产环境
   
+  
 - 全局功能
   - 国际化多语言
   - 动态侧边栏（支持多级路由嵌套）
@@ -177,7 +178,7 @@ ENV = 'development/production/staging'
 VUE_APP_BASE_API = '本地域名/生产域名/测试域名'
 ```
 
-![](C:\Users\qfdev\Desktop\1111\微信截图_20211214181545.png)
+![](instructions\微信截图_20211214181545.png)
 
 ### Mock 假数据
 
@@ -185,12 +186,12 @@ vue页面文件：/src/views/videolist
 api接口：/src/request/api
 PS：可能很多人觉得 api 文件多余，直接在页面写路径，但是用 api 文件在路径上更方便管理，这点在微服务中通过特定服务名去访问显得尤为明显，类似这种：
 
-![](C:\Users\qfdev\Desktop\1111\微信截图_20211214182708.png)
+![](instructions\微信截图_20211214182708.png)
 
 - mock 虚拟数据文件：/mock/user.js
-- ![](C:\Users\qfdev\Desktop\1111\微信截图_20211214183045.png)
+- ![](instructions\微信截图_20211214183045.png)
 - mock 虚拟数据文件：/mock/table.js
-- ![](C:\Users\qfdev\Desktop\1111\微信截图_20211214183125.png)
+- ![](instructions\微信截图_20211214183125.png)
 
 **流程说明：**
 
@@ -202,64 +203,47 @@ PS：可能很多人觉得 api 文件多余，直接在页面写路径，但是�
 
 请求：
 
-![](C:\Users\qfdev\Desktop\1111\login.png)
+![](instructions\login.png)
 
 接口：
 
-![](C:\Users\qfdev\Desktop\1111\微信截图_20211214183445.png)
+![](instructions\微信截图_20211214183445.png)
 
 拦截：
 
-![](C:\Users\qfdev\Desktop\1111\微信截图_20211214183528.png)
+![](instructions\微信截图_20211214183528.png)
 
 ## 登录
 
 ```js
-import { mapGetters, mapActions } from "vuex";  //引入store工具
+import { validUsername, validPassword } from "@/utils/validate";     //引入表单校验
+import { mapActions, mapGetters } from "vuex";                       //引入store工具
+import {successAlert,warningAlert} from "@/utils/alert"              //引入提示工具
 
 methods: {
     ...mapActions({
-      login: "user/login",           //引入store中user模块下的login登录方法
+      login: "user/login",           //引入store中user模块下的login方法
     }),
 }
 
 //监听登录    
 handleLogin() {
       this.$refs.loginForm.validate((valid) => {
-          
-        //注释掉部分为登录简化版  可根据业务需求更改代码
-        /* if (!valid) return console.log("error submit!!");
-
-        this.loading = true;
+        if (!valid) return console.log("error submit!!");
+		
+        //调用store/user下面的login方法
         this.login(this.loginForm).then((res) => {
-          if (res.data.ret == 1000) {
-            successAlert("登录成功")
+          if (res.data.code == 200) {
             this.$router.push({ path: this.redirect || "/" });
             this.loading = false;
-          } else {
-            warningAlert("登录出错啦!")
+            successAlert("登录成功")
+          }else{
             this.loading = false;
+            warningAlert("登录失败")
           }
-        }); */
-        
-        if (valid) {
-          this.loading = true;
-          this.$store
-            .dispatch("user/login", this.loginForm)
-            .then(() => {
-              this.$router.push({ path: this.redirect || "/" });
-              this.loading = false;
-            })
-            .catch(() => {
-              this.loading = false;
-            });
-        } else {
-          console.log("error submit!!");
-          return false;
-        }
+        });
       });
     },
-
 ```
 
 
@@ -270,11 +254,11 @@ handleLogin() {
 
 #### 
 
-在登陆方法里建议不要做多于操作，就登陆就行了，因为缓存用的时 vuex 和之前版本一样刷新就没了，所以还需要走 getInfo 方法来获取需要的数据，如果你按照框架的来，建议必要权限数据在这取，然后放 vuex，那些准备直接放 localStorage 的请无视。
+在登陆方法里建议不要做多于操作，就登陆就行了，因为缓存用的是 vuex 和之前版本一样刷新就没了，所以还需要走 getInfo 方法来获取需要的数据，如果你按照框架的来，建议必要权限数据在这取，然后放 vuex，那些准备直接放 localStorage 的请无视。
 
 
 
-和之前的版本一样，这个文件就是你路由走的逻辑，简单看下重要部分
+这个文件就是你路由走的逻辑，简单看下重要部分！！！
 
 ```js
 import router from './router'
@@ -426,7 +410,7 @@ router.afterEach(() => {
 
 xxx全局参数/变量：state=>state.xxx模块.xxx参数/变量
 
-![](C:\Users\qfdev\Desktop\1111\微信截图_20211214195746.png)
+![](instructions\微信截图_20211214195746.png)
 
 ```js
 name: state => state.user.name
@@ -443,7 +427,7 @@ xxx全局参数/变量：state=>state.xxx模块.xxx参数/变量
 
 
 
-![](C:\Users\qfdev\Desktop\1111\微信截图_20211214200323.png)
+![](instructions\微信截图_20211214200323.png)
 
 ```bash
 在src/views中添加
@@ -460,7 +444,7 @@ xxx全局参数/变量：state=>state.xxx模块.xxx参数/变量
 
 
 
-![](C:\Users\qfdev\Desktop\1111\微信截图_20211214201021.png)
+![](instructions\微信截图_20211214201021.png)
 
 ```js
 在src/router/index中添加
@@ -481,3 +465,4 @@ xxx全局参数/变量：state=>state.xxx模块.xxx参数/变量
 
 
 之后就可以看到新加的页面的
+

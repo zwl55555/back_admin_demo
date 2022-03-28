@@ -2,11 +2,14 @@ import axios from "axios"
 import Vue from "vue"
 import qs from "qs"
 import store from '@/store'
-import { getToken ,removeToken} from '@/utils/auth'
+import { getToken, removeToken } from '@/utils/auth'
 
+//配置axios的域名
 axios.defaults.baseURL = process.env.VUE_APP_BASE_API
+//加载资源的域名
+Vue.prototype.$pre = process.env.VUE_APP_BASE_API
 
-//开发环境
+/* //开发环境
 if (process.env.NODE_ENV === "development") {
     Vue.prototype.$pre = "http://cshf.gzxlwlkj.cn"
 }
@@ -14,7 +17,7 @@ if (process.env.NODE_ENV === "development") {
 //生产环境
 if (process.env.NODE_ENV === "production") {
     Vue.prototype.$pre = ""
-}
+} */
 
 //请求拦截器
 axios.interceptors.request.use(config => {
@@ -31,13 +34,13 @@ axios.interceptors.response.use(res => {
     console.log(res);
     console.groupEnd("拦截结束")
 
-    
+
     //如果token过期
-    if(res.data&&res.data.code == 40002){
+    if (res.data && res.data.code == 40002) {
         removeToken()
         location.reload()
-    } 
-        
+    }
+
     return res
 })
 

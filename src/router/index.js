@@ -32,16 +32,16 @@ export const constantRoutes = [
   },
 
   {
-    path: '/videomanage',
+    path: '/systemsetone',
     component: Layout,
-    redirect: '/videomanage/videolist',
-    name: 'videomanage',
+    redirect: '/systemsetone/demolistone',
+    name: 'SystemSetOne',
     meta: { title: '系统设置一', icon: 'el-icon-video-camera-solid' },
     children: [
       {
-        path: 'videolist',
-        name: 'videolist',
-        component: () => import('@/views/videolist/index'),
+        path: 'demolistone',
+        name: 'demolistone',
+        component: () => import('@/views/demolistone/index'),
         meta: { title: '列表1', icon: 'el-icon-s-unfold' }
       },
       {
@@ -56,13 +56,13 @@ export const constantRoutes = [
     path: '/systemsettwo',
     component: Layout,
     redirect: '/systemsetone/demolistone',
-    name: 'SystemSetOne',
+    name: 'SystemSetTwo',
     meta: { title: '系统设置二', icon: 'el-icon-s-help' },
     children: [
       {
         path: 'demolistone',
         name: 'demolistone',
-        component: () => import('@/views/videolist/index'),
+        component: () => import('@/views/demolistone/index'),
         meta: { title: '列表1', icon: 'table' }
       },
       {
